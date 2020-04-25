@@ -19,6 +19,24 @@ namespace learn_Russian_API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", b =>
+                {
+                    b.Property<long>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("GroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<TimeSpan>("teaching_time")
+                        .HasColumnType("interval");
+
+                    b.HasKey("TeacherId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("TeacherGroups");
+                });
+
             modelBuilder.Entity("learn_Russian_API.Models.Users.Student.Create.Student", b =>
                 {
                     b.Property<long>("Id")
@@ -133,6 +151,21 @@ namespace learn_Russian_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learn_Russian_API.Models.Users.Teacher.Create.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

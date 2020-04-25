@@ -2,6 +2,7 @@
 
 using learn_Russian_API.Models.Country.Create;
 using learn_Russian_API.Models.Group;
+using learn_Russian_API.Models.TeacherGroup.Create;
 using learn_Russian_API.Models.Users.Student.Create;
 using learn_Russian_API.Models.Users.Teacher.Create;
 using learn_Russian_API.Presistence.Entities;
@@ -13,15 +14,35 @@ namespace learn_Russian_API.Presistence
     {
         public AppDbContext(DbContextOptions options):base(options){}
         
-        public  DbSet<Country>Countries { get; set; }
+         public  DbSet<Country>Countries { get; set; }
         public DbSet<Group> Groups { get; set; }
         public  DbSet<Teacher> Teachers { get; set; }
+        
+        public DbSet<TeacherGroup> TeacherGroups { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<User> Users { get; set; }
+        
+        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
+
+
+            // teacher group 
+            modelBuilder.Entity<TeacherGroup>()
+                .HasKey(tg => new { tg.TeacherId, tg.GroupId });
+            modelBuilder.Entity<TeacherGroup>()
+                    .HasOne<Teacher>()
+                    .WithMany()
+                    .HasForeignKey(t => t.TeacherId);
+            modelBuilder.Entity<TeacherGroup>()
+                .HasOne<Group>()
+                .WithMany()
+                .HasForeignKey(g => g.GroupId);
+                
+
         }
     }
 }

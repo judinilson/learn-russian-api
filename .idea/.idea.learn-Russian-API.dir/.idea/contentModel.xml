@@ -43,15 +43,28 @@
             <e p="GroupGetById.cs" t="Include" />
           </e>
         </e>
+        <e p="TeacherGroup" t="Include">
+          <e p="Create" t="Include">
+            <e p="TeacherGroup.cs" t="Include" />
+          </e>
+        </e>
         <e p="Users" t="Include">
           <e p="Student" t="Include">
             <e p="Create" t="Include">
               <e p="Student.cs" t="Include" />
+              <e p="studentCreateRequest.cs" t="Include" />
+            </e>
+            <e p="GetAll" t="Include">
+              <e p="StudentGetAllResponse.cs" t="Include" />
             </e>
           </e>
           <e p="Teacher" t="Include">
             <e p="Create" t="Include">
               <e p="Teacher.cs" t="Include" />
+              <e p="TeacherCreateRequest.cs" t="Include" />
+            </e>
+            <e p="GetAll" t="Include">
+              <e p="TeacherGetAllResponse.cs" t="Include" />
             </e>
           </e>
         </e>

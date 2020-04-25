@@ -31,7 +31,8 @@ namespace learn_Russian_API.Controllers
         [ProducesResponseType(typeof(ICollection<CountryGetAllResponse>),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _context.Countries.ProjectTo<CountryGetAllResponse>(_mapper.ConfigurationProvider).ToListAsync());
+            return Ok(await _context.Countries.ProjectTo<CountryGetAllResponse>(_mapper.ConfigurationProvider)
+                .ToListAsync());
         }
 
         [HttpGet("{id}")]
@@ -45,12 +46,12 @@ namespace learn_Russian_API.Controllers
         
         [HttpPost]
         [ProducesResponseType(typeof(CountryGetAllResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateOne([FromBody] CountryCreateRequest request)
+        public async Task<IActionResult> CreateCountry([FromBody] CountryCreateRequest request)
         {
             var res = await _context.Countries.AddAsync(_mapper.Map<Country>(request));
             await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(CreateOne),
+            return CreatedAtAction(nameof(CreateCountry),
                 await _context.Countries.ProjectTo<CountryGetAllResponse>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(x => x.Id == res.Entity.Id));
         }

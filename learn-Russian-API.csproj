@@ -27,6 +27,7 @@
     <Compile Remove="Presistence\Entities\CountryCreateRequest.cs" />
     <Compile Remove="Migrations\20200327132603_InitialMigration.cs" />
     <Compile Remove="Migrations\20200327132603_InitialMigration.Designer.cs" />
+    <Compile Remove="Presistence\Entities\TeacherGroupConfig.cs" />
   </ItemGroup>
   
   <ItemGroup>
