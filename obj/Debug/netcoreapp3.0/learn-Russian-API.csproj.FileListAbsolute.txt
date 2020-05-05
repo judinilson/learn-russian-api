@@ -53,3 +53,10 @@ D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.MvcApplicationPar
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\staticwebassets\learn-Russian-API.StaticWebAssets.Manifest.cache
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\staticwebassets\learn-Russian-API.StaticWebAssets.xml
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.genruntimeconfig.cache
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
+D:\learn-Russian-API\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll

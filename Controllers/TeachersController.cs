@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using DefaultNamespace;
-using learn_Russian_API.Models.Users.Student.Create;
 using learn_Russian_API.Models.Users.Teacher.Create;
 using learn_Russian_API.Models.Users.Teacher.GetAll;
 using learn_Russian_API.Presistence;

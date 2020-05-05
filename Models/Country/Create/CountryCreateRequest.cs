@@ -2,10 +2,7 @@
 {
     public class CountryCreateRequest
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public long Id { get; set; }
+
         /// <summary>
         /// Name
         /// </summary>

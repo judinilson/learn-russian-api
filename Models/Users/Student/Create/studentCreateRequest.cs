@@ -2,18 +2,9 @@
 {
     public class studentCreateRequest
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public long Id { get; set; }
-        /// <summary>
-        /// student first name
-        /// </summary>
-        public string FirstName { get; set; }
-        /// <summary>
-        /// student last name 
-        /// </summary>
-        public  string LastName { get; set; }
+
+        public long UserId { get; set; }
+   
         /// <summary>
         /// student country
         /// </summary>
@@ -21,10 +12,7 @@
         /// <summary>
         /// student teacher
         /// </summary>
-        public long TeacherId { get; set; }
-        /// <summary>
-        /// student group
-        /// </summary>
-        public long GroupId { get; set; }
+        public long TeacherGroupId { get; set; }
+ 
     }
 }

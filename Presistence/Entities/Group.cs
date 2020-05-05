@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace learn_Russian_API.Presistence.Entities
 {
@@ -11,6 +12,7 @@ namespace learn_Russian_API.Presistence.Entities
         /// <summary>
         /// Group name
         /// </summary>
+        [Required]
         public string Name { get; set; }
         /// <summary>
         /// date of Group creation

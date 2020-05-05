@@ -5,9 +5,8 @@ namespace learn_Russian_API.Models.Users.Teacher.GetAll
     public class TeacherGetAllResponse
     {
         public long Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Discipline { get; set; }
+        public  long UserId { get; set; }
+        public string Subject { get; set; }
         public Role Role { get; set; } = Role.Teacher;
     }
 }

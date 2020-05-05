@@ -3,7 +3,6 @@
 using learn_Russian_API.Models.Country.Create;
 using learn_Russian_API.Models.Group;
 using learn_Russian_API.Models.TeacherGroup.Create;
-using learn_Russian_API.Models.Users.Student.Create;
 using learn_Russian_API.Models.Users.Teacher.Create;
 using learn_Russian_API.Presistence.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -23,16 +22,40 @@ namespace learn_Russian_API.Presistence
         public DbSet<User> Users { get; set; }
         
         
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // student
+            modelBuilder.Entity<Student>()
+                .HasIndex(i => new { i.CountryId, i.TeacherGroupId,i.userId})
+                .IsUnique();
+            modelBuilder.Entity<Student>()
+                .HasOne<Country>()
+                .WithMany()
+                .HasForeignKey(c => c.CountryId);
+            
+            modelBuilder.Entity<Student>()
+                .HasOne<TeacherGroup>()
+                .WithMany()
+                .HasForeignKey(tg => tg.TeacherGroupId);
+            
+            modelBuilder.Entity<Student>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(u => u.userId);
+
+            
+            //teacher
+            modelBuilder.Entity<Teacher>()
+                .HasIndex(i => new {i.userId})
+                .IsUnique();
+            modelBuilder.Entity<Teacher>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(u => u.userId);
 
             // teacher group 
-            modelBuilder.Entity<TeacherGroup>()
-                .HasKey(tg => new { tg.TeacherId, tg.GroupId });
             modelBuilder.Entity<TeacherGroup>()
                     .HasOne<Teacher>()
                     .WithMany()

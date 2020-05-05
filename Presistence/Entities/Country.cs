@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace learn_Russian_API.Presistence.Entities
 {
-    public class Country
+    public partial class Country
     {
         /// <summary>
         /// Id
@@ -11,10 +12,12 @@ namespace learn_Russian_API.Presistence.Entities
         /// <summary>
         /// Name
         /// </summary>
+        [Required]
         public string Name { get; set; }
         /// <summary>
         /// Language
         /// </summary>
+        [Required]
         public string Language { get; set; }
         /// <summary>
         /// continent
