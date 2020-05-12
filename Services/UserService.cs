@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using learn_Russian_API.Helpers;
+using learn_Russian_API.Models.Users.GlobalUser.Get;
 using learn_Russian_API.Presistence;
 using learn_Russian_API.Presistence.Entities;
 
@@ -11,8 +12,8 @@ namespace learn_Russian_API.Services
     public interface IUserService
     {
         User Authenticate(string username, string password);
-        IQueryable GetAll();
-        User GetById(int id);
+        IEnumerable GetAll();
+        User GetById(long id);
         User Create(User user, string password);
         void Update(User user, string password = null);
         void Delete(int id);
@@ -46,7 +47,7 @@ namespace learn_Russian_API.Services
             return user;
         }
 
-        public IQueryable GetAll()
+        public IEnumerable GetAll()
         {
             /*
             var teacherUser = from user in _context.Users
@@ -55,20 +56,48 @@ namespace learn_Russian_API.Services
                     on user.Id equals teacher.userId
                 select new { user, teacher};
             
-            var studentUser =from user in _context.Users
-                where true
-                join student in _context.Students
-                    on user.Id equals student.userId
-                select new { user, student };*/
-
-            
            
+           var studentUser =from user in _context.Users
+               where true
+               join student in _context.Students
+                   on user.Id equals student.userId
+               select new { user, student };*/
+            
+         
+
+            /*var teacherUser = from user in _context.Users.ToList()
+                where true
+                join teacher in _context.Teachers.ToList()
+                    on user.Id equals teacher.userId
+                orderby user.Id
+                select new
+                {
+                    _user = new {user.Id,user.FirstName,user.LastName,user.Username,user.Password}, 
+                    _teacher = new {teacher.Id,teacher.Subject,teacher.userId,teacher.Role},
+                };
+
+            var studentUser =from user in _context.Users.ToList()
+                where true
+                join student in _context.Students.ToList()
+                    on user.Id equals student.userId
+                select new
+                {
+                    _user = new {user.Id,user.FirstName,user.LastName,user.Username,user.Password}, 
+                    _student = new {student.Id,student.CountryId,student.TeacherGroupId,student.userId,student.Role}
+
+                };
+
+            IEnumerable users = new[] {new {teacherUser, studentUser}}.ToList();*/
+            
             return _context.Users;
         }
 
+     
 
-        public User GetById(int id)
+
+        public User GetById(long id)
         {
+           
             return _context.Users.Find(id);
         }
 

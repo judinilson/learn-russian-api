@@ -18,9 +18,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc5" />
   </ItemGroup>
   
-  <ItemGroup>
-    <Compile Remove="Controllers\UserUtils.cs" />
-  </ItemGroup>
+ 
+  
+  
   
   
 </Project>

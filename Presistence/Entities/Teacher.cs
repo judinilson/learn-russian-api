@@ -2,8 +2,7 @@
 {
     public class Teacher
     {
-        public long Id { get; set; }
-        public long userId { get; set; }
+        //public long Id { get; set; }
         public string Subject { get; set; }
         public Role Role { get; set; } = Role.Teacher;
     }

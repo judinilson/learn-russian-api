@@ -12,12 +12,10 @@ namespace learn_Russian_API.Presistence.Entities
         /// <summary>
         /// Name
         /// </summary>
-        [Required]
         public string Name { get; set; }
         /// <summary>
         /// Language
         /// </summary>
-        [Required]
         public string Language { get; set; }
         /// <summary>
         /// continent

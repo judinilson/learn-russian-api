@@ -15,10 +15,10 @@ namespace learn_Russian_API.Presistence
         
          public  DbSet<Country>Countries { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public  DbSet<Teacher> Teachers { get; set; }
+        //public  DbSet<Teacher> Teachers { get; set; }
         
         public DbSet<TeacherGroup> TeacherGroups { get; set; }
-        public DbSet<Student> Students { get; set; }
+        //public DbSet<Student> Students { get; set; }
         public DbSet<User> Users { get; set; }
         
         
@@ -26,27 +26,21 @@ namespace learn_Russian_API.Presistence
         {
             base.OnModelCreating(modelBuilder);
 
-            // student
-            modelBuilder.Entity<Student>()
-                .HasIndex(i => new { i.CountryId, i.TeacherGroupId,i.userId})
-                .IsUnique();
-            modelBuilder.Entity<Student>()
+
+            // user
+            modelBuilder.Entity<User>()
                 .HasOne<Country>()
                 .WithMany()
                 .HasForeignKey(c => c.CountryId);
             
-            modelBuilder.Entity<Student>()
+            modelBuilder.Entity<User>()
                 .HasOne<TeacherGroup>()
                 .WithMany()
                 .HasForeignKey(tg => tg.TeacherGroupId);
-            
-            modelBuilder.Entity<Student>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(u => u.userId);
+          
 
             
-            //teacher
+            /*teacher
             modelBuilder.Entity<Teacher>()
                 .HasIndex(i => new {i.userId})
                 .IsUnique();
@@ -54,17 +48,20 @@ namespace learn_Russian_API.Presistence
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(u => u.userId);
-
+                 */
+            
+            
+    
             // teacher group 
             modelBuilder.Entity<TeacherGroup>()
-                    .HasOne<Teacher>()
+                    .HasOne<User>()
                     .WithMany()
                     .HasForeignKey(t => t.TeacherId);
             modelBuilder.Entity<TeacherGroup>()
                 .HasOne<Group>()
                 .WithMany()
                 .HasForeignKey(g => g.GroupId);
-                
+               
 
         }
     }

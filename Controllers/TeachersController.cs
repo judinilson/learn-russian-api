@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using learn_Russian_API.Models.Users.Teacher.Create;
-using learn_Russian_API.Models.Users.Teacher.GetAll;
 using learn_Russian_API.Presistence;
 using learn_Russian_API.Presistence.Entities;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +16,7 @@ namespace learn_Russian_API.Controllers
         [Produces("application/json")]
         public class TeachersController : Controller
         {
-            private readonly AppDbContext _context;
+            /*private readonly AppDbContext _context;
             private readonly IMapper _mapper;
 
             public TeachersController(AppDbContext context, IMapper mapper)
@@ -44,7 +43,7 @@ namespace learn_Russian_API.Controllers
                 return CreatedAtAction(nameof(CreateTeacher),
                     await _context.Teachers.ProjectTo<TeacherGetAllResponse>(_mapper.ConfigurationProvider)
                         .FirstOrDefaultAsync(x => x.Id == res.Entity.Id));
-            }
+            }*/
 
 
         }
