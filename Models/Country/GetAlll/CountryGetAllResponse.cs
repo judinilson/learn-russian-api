@@ -19,6 +19,6 @@ namespace learn_Russian_API.Models.Country.GetAlll
         /// <summary>
         /// continent
         /// </summary>
-        public Region Region { get; set; }
+        public string Region { get; set; }
     }
 }

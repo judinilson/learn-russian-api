@@ -20,6 +20,6 @@ namespace learn_Russian_API.Presistence.Entities
         /// <summary>
         /// continent
         /// </summary>
-        public Region Region { get; set; }
+        public string Region { get; set; }
     }
 }

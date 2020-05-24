@@ -14,6 +14,6 @@
         /// <summary>
         /// continent
         /// </summary>
-        public int Region { get; set; }
+        public string Region { get; set; }
     }
 }
