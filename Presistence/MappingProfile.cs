@@ -1,4 +1,9 @@
 ﻿using AutoMapper;
+using learn_Russian_API.Models.Category.Create;
+using learn_Russian_API.Models.Category.GetAll;
+using learn_Russian_API.Models.Category.Update;
+using learn_Russian_API.Models.Content.Create;
+using learn_Russian_API.Models.Content.GetAll;
 using learn_Russian_API.Models.Country.Create;
 using learn_Russian_API.Models.Country.GetAlll;
 using learn_Russian_API.Models.Country.GetById;
@@ -30,13 +35,7 @@ namespace learn_Russian_API.Presistence
             CreateMap<GroupCreateRequest, Group>();
 
             
-            //CreateMap<Student, StudentGetAllResponse>();
-           // CreateMap<Group, GroupGetById>();
-            //CreateMap<studentCreateRequest, Student>();
-            
-            //CreateMap<Teacher, TeacherGetAllResponse>();
-            // CreateMap<Group, GroupGetById>();
-            //CreateMap<TeacherCreateRequest, Teacher>();
+         
 
             CreateMap<TeacherGroupCreate, TeacherGroup>();
             CreateMap<TeacherGroup, TeacherGroup>();
@@ -48,7 +47,16 @@ namespace learn_Russian_API.Presistence
             CreateMap<StudentUserCreateRequest, User>();
             CreateMap<TeacherUserCreateRequest, User>();
             CreateMap<UserUpdateRequest, User>();
+            
+            
+            CreateMap<Category, CategoryGetAllResponse>();
+            CreateMap<CategoryCreateRequest, Category>();
+            CreateMap<CategoryUpdateRequest, Category>();
 
+            
+            CreateMap<Content, ContentGetAllResponse>();
+            CreateMap<ContentDemoCreate, Content>();
+            CreateMap<ContentArticleCreate, Content>();
 
         }
     }

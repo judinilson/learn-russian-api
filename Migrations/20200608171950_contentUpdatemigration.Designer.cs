@@ -10,8 +10,8 @@ using learn_Russian_API.Presistence;
 namespace learn_Russian_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200509190109_partialmigrations")]
-    partial class partialmigrations
+    [Migration("20200608171950_contentUpdatemigration")]
+    partial class contentUpdatemigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,11 +39,57 @@ namespace learn_Russian_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("TeacherId");
-
                     b.ToTable("TeacherGroups");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Content", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("article")
+                        .HasColumnType("text");
+
+                    b.Property<long>("categoryID")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("coverImage")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isArticle")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isDemo")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("subtitle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("categoryID");
+
+                    b.ToTable("Contents");
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Country", b =>
@@ -59,12 +105,35 @@ namespace learn_Russian_API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("Region")
-                        .HasColumnType("integer");
+                    b.Property<string>("Region")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemostrationContents", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long?>("ContentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("src")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("DemostrationContentses");
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Group", b =>
@@ -131,38 +200,23 @@ namespace learn_Russian_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherGroupId");
-
-                    b.HasIndex("CountryId", "TeacherGroupId")
-                        .IsUnique();
-
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", b =>
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Content", b =>
                 {
-                    b.HasOne("learn_Russian_API.Presistence.Entities.Group", null)
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Category", null)
                         .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("learn_Russian_API.Presistence.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
+                        .HasForeignKey("categoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.User", b =>
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemostrationContents", b =>
                 {
-                    b.HasOne("learn_Russian_API.Presistence.Entities.Country", null)
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", null)
-                        .WithMany()
-                        .HasForeignKey("TeacherGroupId");
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Content", null)
+                        .WithMany("DemostrationContentses")
+                        .HasForeignKey("ContentId");
                 });
 #pragma warning restore 612, 618
         }

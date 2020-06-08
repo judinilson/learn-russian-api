@@ -8,6 +8,8 @@
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
+        <e p="CategoryController.cs" t="Include" />
+        <e p="ContentController.cs" t="Include" />
         <e p="CountryController.cs" t="Include" />
         <e p="GroupController.cs" t="Include" />
         <e p="StudentsController.cs" t="Include" />
@@ -22,10 +24,31 @@
       <e p="learn-Russian-API.csproj" t="IncludeRecursive" />
       <e p="Migrations" t="Include">
         <e p="20200509190109_partialmigrations.cs" t="Include" />
-        <e p="20200509190109_partialmigrations.Designer.cs" t="Include" />
+        <e p="20200608171950_contentUpdatemigration.cs" t="Include" />
+        <e p="20200608171950_contentUpdatemigration.Designer.cs" t="Include" />
         <e p="AppDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
+        <e p="Category" t="Include">
+          <e p="Create" t="Include">
+            <e p="CategoryCreateRequest.cs" t="Include" />
+          </e>
+          <e p="GetAll" t="Include">
+            <e p="CategoryGetAllResponse.cs" t="Include" />
+          </e>
+          <e p="Update" t="Include">
+            <e p="CategoryUpdateRequest.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Content" t="Include">
+          <e p="Create" t="Include">
+            <e p="ContentArticleCreate.cs" t="Include" />
+            <e p="ContentDemoCreate.cs" t="Include" />
+          </e>
+          <e p="GetAll" t="Include">
+            <e p="ContentGetAllResponse.cs" t="Include" />
+          </e>
+        </e>
         <e p="Country" t="Include">
           <e p="Create" t="Include">
             <e p="CountryCreateRequest.cs" t="Include" />
@@ -101,7 +124,10 @@
       <e p="Presistence" t="Include">
         <e p="AppDbContext.cs" t="Include" />
         <e p="Entities" t="Include">
+          <e p="Category.cs" t="Include" />
+          <e p="Content.cs" t="Include" />
           <e p="Country.cs" t="Include" />
+          <e p="DemostrationContents.cs" t="Include" />
           <e p="Group.cs" t="Include" />
           <e p="Region.cs" t="Include" />
           <e p="Role.cs" t="Include" />
