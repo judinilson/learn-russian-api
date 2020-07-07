@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using learn_Russian_API.Presistence;
@@ -9,9 +10,10 @@ using learn_Russian_API.Presistence;
 namespace learn_Russian_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200609163139_trainingmigration")]
+    partial class trainingmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,35 +182,6 @@ namespace learn_Russian_API.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Statistic", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("BackToArticleCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TotalCorrectAnswers")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TotalIncorrectAnswers")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("TrainingDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Statistics");
-                });
-
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Training", b =>
                 {
                     b.Property<long>("Id")
@@ -246,6 +219,8 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("TrainingContents");
                 });
@@ -312,20 +287,20 @@ namespace learn_Russian_API.Migrations
                         .HasForeignKey("ContentId");
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Statistic", b =>
-                {
-                    b.HasOne("learn_Russian_API.Presistence.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Training", b =>
                 {
                     b.HasOne("learn_Russian_API.Presistence.Entities.TrainingContent", null)
                         .WithMany("Trainings")
                         .HasForeignKey("TrainingContentId");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.TrainingContent", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace learn_Russian_API.Models.Content.Create
 {
@@ -10,5 +11,8 @@ namespace learn_Russian_API.Models.Content.Create
         [Required]public string article { get; set; } 
         [Required]public long categoryID { get; set; }
         public bool isArticle { get; set; } = true;
+        [Required]public string author { get; set; }
+        public DateTime created {get; set; }
+
     }
 }

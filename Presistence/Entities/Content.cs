@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace learn_Russian_API.Presistence.Entities
 {
@@ -14,5 +15,8 @@ namespace learn_Russian_API.Presistence.Entities
         public long categoryID { get; set; }
         public bool isDemo { get; set; } = false;
         public bool isArticle { get; set; } = false;
+        public string author { get; set; }
+        public DateTime created {get; set; }
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DefaultNamespace;
 using learn_Russian_API.Models.Category.GetAll;
 using learn_Russian_API.Models.Content.Create;
 using learn_Russian_API.Models.Content.GetAll;
@@ -32,6 +34,30 @@ namespace learn_Russian_API.Controllers
         {
             return Ok(await _context.Contents.ProjectTo<ContentGetAllResponse>(_mapper.ConfigurationProvider)
                 .ToListAsync());
+        }
+        
+        [HttpGet("Demonstration-Content")]
+        [ProducesResponseType(typeof(ICollection<DemonstrationContentResponse>),StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetDemoContent()
+        {
+            
+            var getdemo = await _context.Contents.Where(x => x.isDemo)
+                .ProjectTo<DemonstrationContentResponse>(_mapper.ConfigurationProvider)
+               .ToListAsync();
+            
+            return Ok(getdemo);
+        }
+        
+        [HttpGet("Article-Content")]
+        [ProducesResponseType(typeof(ICollection<ArticleContentResponse>),StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetArticleContent()
+        {
+            
+            var getArticle = await _context.Contents.Where(x => x.isArticle)
+                .ProjectTo<ArticleContentResponse>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+            
+            return Ok(getArticle);
         }
         
         

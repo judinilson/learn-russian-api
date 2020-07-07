@@ -16,7 +16,7 @@ namespace learn_Russian_API.Services
         User GetById(long id);
         User Create(User user, string password);
         void Update(User user, string password = null);
-        void Delete(int id);
+        void Delete(long id);
     }
 
     public class UserService :IUserService
@@ -145,21 +145,29 @@ namespace learn_Russian_API.Services
             if (!string.IsNullOrWhiteSpace(userParam.LastName))
                 user.LastName = userParam.LastName;
             
+            //update group if exist
+            if (userParam.TeacherGroupId != null && user.TeacherGroupId != null)
+            {
+                user.TeacherGroupId = userParam.TeacherGroupId;
+            }
+            
             //update password if provided
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;
                 CreatePasswordHash(password,out passwordHash,out passwordSalt);
-
+    
+                
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
+                user.Password = password;
             }
 
             _context.Users.Update(user);
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var user = _context.Users.Find(id);
             if (user != null)

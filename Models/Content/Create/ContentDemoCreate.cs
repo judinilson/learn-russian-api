@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using learn_Russian_API.Models.Content.DemoContents;
 using learn_Russian_API.Presistence.Entities;
 
 namespace learn_Russian_API.Models.Content.Create
@@ -9,8 +11,11 @@ namespace learn_Russian_API.Models.Content.Create
         [Required]public string title { get; set; }
         public  string subtitle { get; set; }
         public  string coverImage { get; set; }
-        [Required]public ICollection<DemostrationContents> DemostrationContentses { get; set; }
+        [Required]public ICollection<DemonstrationContentsRequest> DemostrationContentses { get; set; }
         [Required]public long categoryID { get; set; }
         public bool isDemo { get; set; } = true;
+        [Required]public string author { get; set; }
+        public DateTime created {get; set; }
+
     }
 }

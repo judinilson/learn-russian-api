@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,5 +25,6 @@ namespace learn_Russian_API.Presistence.Entities
        
         public Role Role { get; set; } = Role.Developer;
         public bool isActive = true;
+        public DateTime created {get; set; }
     }
 }

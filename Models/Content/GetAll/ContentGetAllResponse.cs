@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using learn_Russian_API.Models.Content.DemoContents;
 using learn_Russian_API.Presistence.Entities;
 
 namespace learn_Russian_API.Models.Content.GetAll
@@ -9,10 +11,13 @@ namespace learn_Russian_API.Models.Content.GetAll
         public string title { get; set; }
         public  string subtitle { get; set; }
         public  string coverImage { get; set; }
-        public ICollection<DemostrationContents> DemostrationContentses { get; set; }
+        public ICollection<DemonstrationContentsRequest> DemostrationContentses { get; set; }
         public string article { get; set; } 
         public long categoryID { get; set; }
         public bool isDemo { get; set; }
         public bool isArticle { get; set; }
+        public string author { get; set; }
+        public DateTime created {get; set; }
+
     }
 }

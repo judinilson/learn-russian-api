@@ -59,5 +59,39 @@ namespace learn_Russian_API.Controllers
                                  x.GroupId == res.Entity.GroupId)
                 );
         }
+        
+        
+        [HttpPut]
+        [ProducesResponseType(typeof(TeacherGroup), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateGroup([FromBody]TeacherGroupModify  request)
+        {
+            var foundGroup = await _context.TeacherGroups.FirstOrDefaultAsync(g => g.Id == request.Id);
+            if (foundGroup == null) return NotFound();
+
+            foundGroup.TeacherId = request.TeacherId;
+            foundGroup.GroupId = request.GroupId;
+            foundGroup.teaching_time = request.teaching_time;
+            
+            
+            _context.TeacherGroups.Update(foundGroup);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.TeacherGroups.ProjectTo<TeacherGroup>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == request.Id));
+        }
+        
+        
+        [HttpDelete("{id}")]
+        //[ProducesResponseType(typeof(GroupGetAllResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateDelete(long id)
+        {
+            var foundGroup = await _context.TeacherGroups.FirstOrDefaultAsync(g => g.Id == id);
+            if (foundGroup == null) return NotFound();
+
+            _context.TeacherGroups.Remove(foundGroup);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

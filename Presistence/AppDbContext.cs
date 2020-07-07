@@ -23,15 +23,20 @@ namespace learn_Russian_API.Presistence
         
         public DbSet<Content> Contents { get; set; }
         public DbSet<DemostrationContents> DemostrationContentses { get; set; }
+        public DbSet<TrainingContent> TrainingContents { get; set; }
+        public DbSet<Training> Trainings { get; set; }
+        public  DbSet<Answer> Answers { get; set; }
+        public DbSet<Statistic> Statistics { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
-            //CONTENT 
-            modelBuilder.Entity<Content>()
-                .HasOne<Category>()
+            //TRAINING 
+            modelBuilder.Entity<Statistic>()
+                .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(t => t.categoryID);
+                .HasForeignKey(u => u.UserId);
            
                 
         }

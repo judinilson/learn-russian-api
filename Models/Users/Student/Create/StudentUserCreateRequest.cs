@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using learn_Russian_API.Presistence.Entities;
 
 namespace learn_Russian_API.Models.Users.Student.Create
@@ -13,5 +14,7 @@ namespace learn_Russian_API.Models.Users.Student.Create
         [Required]public string Password { get; set; }
         public bool isActive = true;
         public Role Role { get; set; } = Role.Student;
+        public DateTime created {get; set; }
+
     }
 }

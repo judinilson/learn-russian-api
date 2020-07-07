@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using learn_Russian_API.Helpers;
 using learn_Russian_API.Models.Users;
@@ -14,7 +16,9 @@ using learn_Russian_API.Presistence;
 using learn_Russian_API.Presistence.Entities;
 using learn_Russian_API.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -81,6 +85,9 @@ namespace learn_Russian_API.Controllers
                 });
             
         }
+        
+        
+       
 
 
         [AllowAnonymous]
@@ -167,10 +174,11 @@ namespace learn_Russian_API.Controllers
                 return BadRequest(new {message = ex.Message});
             }
         }
-
+        
+        
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(long id)
         {
             _userService.Delete(id);
             return Ok();
