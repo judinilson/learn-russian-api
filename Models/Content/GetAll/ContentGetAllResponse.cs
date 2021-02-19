@@ -11,7 +11,8 @@ namespace learn_Russian_API.Models.Content.GetAll
         public string title { get; set; }
         public  string subtitle { get; set; }
         public  string coverImage { get; set; }
-        public ICollection<DemonstrationContentsRequest> DemostrationContentses { get; set; }
+        //public ICollection<DemonstrationContentsRequest> DemostrationContentses { get; set; }
+        public long DemonstrationContentID { get; set; }
         public string article { get; set; } 
         public long categoryID { get; set; }
         public bool isDemo { get; set; }

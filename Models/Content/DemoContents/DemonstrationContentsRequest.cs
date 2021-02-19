@@ -1,8 +1,10 @@
-﻿namespace learn_Russian_API.Models.Content.DemoContents
+﻿using System.Collections.Generic;
+
+namespace learn_Russian_API.Models.Content.DemoContents
 {
     public class DemonstrationContentsRequest
     {
-        public string title { get; set; }
-        public string src { get; set;  }
+        public long Id { get; set; }
+        public ICollection<DemoContentsModel> DemostrationContentses { get; set; }
     }
 }

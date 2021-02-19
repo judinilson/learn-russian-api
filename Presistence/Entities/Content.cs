@@ -10,7 +10,8 @@ namespace learn_Russian_API.Presistence.Entities
         public string title { get; set; }
         public  string subtitle { get; set; }
         public  string coverImage { get; set; }
-        public ICollection<DemostrationContents> DemostrationContentses { get; set; } = null;
+        //public ICollection<DemostrationContents> DemostrationContentses { get; set; } = null;
+        public long DemonstrationContentID { get; set; }
         public string article { get; set; } = null;
         public long categoryID { get; set; }
         public bool isDemo { get; set; } = false;

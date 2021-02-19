@@ -11,6 +11,7 @@
         <e p="CategoryController.cs" t="Include" />
         <e p="ContentController.cs" t="Include" />
         <e p="CountryController.cs" t="Include" />
+        <e p="DemonstrationContentsController.cs" t="Include" />
         <e p="GroupController.cs" t="Include" />
         <e p="StatisticController.cs" t="Include" />
         <e p="StudentsController.cs" t="Include" />
@@ -19,6 +20,7 @@
         <e p="TrainingContentController.cs" t="Include" />
         <e p="UserController.cs" t="Include" />
       </e>
+      <e p="dotnet" t="Include" />
       <e p="Folder.DotSettings" t="Include" />
       <e p="Helpers" t="Include">
         <e p="AppException.cs" t="Include" />
@@ -27,12 +29,16 @@
       <e p="learn-Russian-API.csproj" t="IncludeRecursive" />
       <e p="Migrations" t="Include">
         <e p="20200509190109_partialmigrations.cs" t="Include" />
-        <e p="20200608171950_contentUpdatemigration.cs" t="Include" />
-        <e p="20200608171950_contentUpdatemigration.Designer.cs" t="Include" />
         <e p="20200609163139_trainingmigration.cs" t="Include" />
         <e p="20200609163139_trainingmigration.Designer.cs" t="Include" />
         <e p="20200609174342_statisticmigration.cs" t="Include" />
         <e p="20200609174342_statisticmigration.Designer.cs" t="Include" />
+        <e p="20210212174955_updateDBRenewTabless.cs" t="Include" />
+        <e p="20210212174955_updateDBRenewTabless.Designer.cs" t="Include" />
+        <e p="20210212200205_updateDemonstrationContentCollection.cs" t="Include" />
+        <e p="20210212200205_updateDemonstrationContentCollection.Designer.cs" t="Include" />
+        <e p="20210213122735_checkdb.cs" t="Include" />
+        <e p="20210213122735_checkdb.Designer.cs" t="Include" />
         <e p="AppDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -51,8 +57,11 @@
           <e p="Create" t="Include">
             <e p="ContentArticleCreate.cs" t="Include" />
             <e p="ContentDemoCreate.cs" t="Include" />
+            <e p="DemonstrationContentsCreate.cs" t="Include" />
           </e>
           <e p="DemoContents" t="Include">
+            <e p="DemoContentsModel.cs" t="Include" />
+            <e p="DemoContentsModelCreate.cs" t="Include" />
             <e p="DemonstrationContentsRequest.cs" t="Include" />
           </e>
           <e p="GetAll" t="Include">
@@ -146,6 +155,7 @@
           <e p="UserModifyRequest.cs" t="Include" />
         </e>
       </e>
+      <e p="New File" t="Include" />
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp3.0" t="Include">
@@ -162,7 +172,7 @@
           <e p="Category.cs" t="Include" />
           <e p="Content.cs" t="Include" />
           <e p="Country.cs" t="Include" />
-          <e p="DemostrationContents.cs" t="Include" />
+          <e p="DemonstrationContents.cs" t="Include" />
           <e p="Group.cs" t="Include" />
           <e p="Region.cs" t="Include" />
           <e p="Role.cs" t="Include" />
@@ -180,7 +190,20 @@
       <e p="Properties" t="Include">
         <e p="launchSettings.json" t="Include" />
       </e>
+      <e p="Resources" t="Include">
+        <e p="Images" t="Include">
+          <e p="Captura de Tela 2019-09-25 às 22.35.13.png" t="Include" />
+          <e p="user.png" t="Include" />
+        </e>
+        <e p="media-files" t="Include">
+          <e p="I Just Don't Get It - Motivational Speech (The Living Dead).mp4" t="Include" />
+          <e p="videoplayback (1).mp4" t="Include" />
+          <e p="videoplayback.mp4" t="Include" />
+        </e>
+      </e>
       <e p="Services" t="Include">
+        <e p="DemoContentsSourceService.cs" t="Include" />
+        <e p="fileService.cs" t="Include" />
         <e p="UserService.cs" t="Include" />
       </e>
       <e p="Startup.cs" t="Include" />

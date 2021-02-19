@@ -8,10 +8,12 @@ namespace learn_Russian_API.Models.Content.Create
 {
     public class ContentDemoCreate
     {
+
         [Required]public string title { get; set; }
         public  string subtitle { get; set; }
         public  string coverImage { get; set; }
-        [Required]public ICollection<DemonstrationContentsRequest> DemostrationContentses { get; set; }
+        [Required] public long DemonstrationContentID { get; set; }
+        //public ICollection<DemonstrationContentsCreate> DemostrationContentses { get; set; }
         [Required]public long categoryID { get; set; }
         public bool isDemo { get; set; } = true;
         [Required]public string author { get; set; }

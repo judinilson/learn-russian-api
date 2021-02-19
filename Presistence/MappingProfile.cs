@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections;
+using AutoMapper;
 using DefaultNamespace;
 using learn_Russian_API.Models.Category.Create;
 using learn_Russian_API.Models.Category.GetAll;
@@ -22,6 +23,7 @@ using learn_Russian_API.Models.Users.GlobalUser.Update;
 using learn_Russian_API.Models.Users.Student.Create;
 using learn_Russian_API.Models.Users.Teacher.Create;
 using learn_Russian_API.Presistence.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace learn_Russian_API.Presistence
 {
@@ -66,9 +68,12 @@ namespace learn_Russian_API.Presistence
             CreateMap<Content, DemonstrationContentResponse>();
             CreateMap<Content, ArticleContentResponse>();
             CreateMap<ContentDemoCreate, Content>();
-            CreateMap<DemonstrationContentsRequest, DemostrationContents>();
-            CreateMap<DemostrationContents, DemonstrationContentsRequest>();
+            CreateMap<DemonstrationContentsCreate, DemonstrationContents>();
+            CreateMap<DemonstrationContents, DemonstrationContentsRequest>();
             CreateMap<ContentArticleCreate, Content>();
+            CreateMap<DemoContentsModelCreate[],DemoContentsModel>();
+            CreateMap<DemoContentsModelCreate,DemoContentsModel>();
+
 
             //training
             CreateMap<TrainingContent, TrainingContentResponse>();

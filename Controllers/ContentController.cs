@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿ using System;
+ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -12,20 +13,45 @@ using learn_Russian_API.Presistence.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Net.Http.Headers;
+ using learn_Russian_API.Models.Content.DemoContents;
+ using Microsoft.Extensions.Logging;
+ using Microsoft.OpenApi.Any;
 
-namespace learn_Russian_API.Controllers
+ namespace learn_Russian_API.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class ContentController : Controller
+    public class
+    ContentController : Controller
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private IWebHostEnvironment _hostingEnviroment;
+        //private readonly FileService _fileService;
+        private readonly ILogger<ContentController > _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         
-        public ContentController(AppDbContext context, IMapper mapper)
+        public ContentController(
+            AppDbContext context, 
+            IMapper mapper,
+            IWebHostEnvironment hostingEnvironment,
+            ILogger<ContentController> logger, 
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _context = context;
             _mapper = mapper;
+            _hostingEnviroment = hostingEnvironment;
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+             //_fileService = fileService;
+
+             ;
+            //string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+             //Console.WriteLine(host);
         }
         
         [HttpGet]
@@ -65,15 +91,123 @@ namespace learn_Russian_API.Controllers
         [ProducesResponseType(typeof(ContentGetAllResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateContentDemo([FromBody] ContentDemoCreate request)
         {
+           
+          try{
+              var res = await _context.Contents.AddAsync(_mapper.Map<Content>(request));
+              await _context.SaveChangesAsync();
             
-            
-            var res = await _context.Contents.AddAsync(_mapper.Map<Content>(request));
+              return CreatedAtAction(nameof(CreateContentDemo),
+                  await _context.Contents.ProjectTo<ContentGetAllResponse>(_mapper.ConfigurationProvider)
+                      .FirstOrDefaultAsync(x => x.Id == res.Entity.Id));
+          }catch (Exception exception)
+          {
+              return BadRequest($"Error: {exception.Message}");
+          }
+           
+        }
+        
+        /* PUT DEMO CONTENT */
+        [HttpPut("Content-Demo {id}")]
+        [ProducesResponseType(typeof(ContentGetAllResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateContentDemo(long id, [FromBody] ContentDemoCreate request)
+        {
+
+          
+            var demo_content = await _context.Contents
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (demo_content == null) return NotFound("Content wasn't found");
+            demo_content.title = request.title;
+            demo_content.subtitle = request.subtitle;
+            demo_content.coverImage = request.coverImage;
+            demo_content.categoryID = request.categoryID;
+            //demo_content.DemonstrationContentID = request.DemonstrationContentID;
+
+
+
+            _context.Contents.Update(demo_content);
             await _context.SaveChangesAsync();
             
-            return CreatedAtAction(nameof(CreateContentDemo),
-                await _context.Contents.ProjectTo<ContentGetAllResponse>(_mapper.ConfigurationProvider)
-                    .FirstOrDefaultAsync(x => x.Id == res.Entity.Id));
+            return Ok(await _context.Contents.ProjectTo<ContentGetAllResponse>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == demo_content.Id));
         }
+
+        
+        [HttpPost("upload-files"),DisableRequestSizeLimit]
+        public  IActionResult UploadFile()
+        {
+           
+            List<String> urls = new List<string>();
+            string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+            try
+                {
+                    var files = Request.Form.Files;
+                    var folderName = Path.Combine("Resources", "media-files");
+                    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                    if (files.Any(f => f.Length == 0))
+                    {
+                        return BadRequest();
+                    }
+                    foreach (var file in files)
+                    {
+                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                        var fullPath = Path.Combine(pathToSave, fileName);
+                        var dbPath = Path.Combine(host,folderName, fileName); //you can add this path to a list and then return all dbPaths to the client if require
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                        dbPath = dbPath.Replace("\\", "/");
+                        urls.Add(dbPath);
+                    }
+                    
+                    return Ok(urls.ToList());
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Internal server error");
+                }
+        }
+       
+        
+        [HttpPost("upload-coverimg"), DisableRequestSizeLimit]
+        public IActionResult UploadImage()
+        {
+            string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(host,folderName, fileName);
+                    dbPath = dbPath.Replace("\\", "/");
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
+       
+
+        
+
+    
         
         [HttpPost("Content-Article-Create")]
         [ProducesResponseType(typeof(ContentGetAllResponse), StatusCodes.Status200OK)]

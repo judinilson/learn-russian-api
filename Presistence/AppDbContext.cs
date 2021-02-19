@@ -1,5 +1,6 @@
 ﻿
 
+using learn_Russian_API.Models.Content.DemoContents;
 using learn_Russian_API.Models.Country.Create;
 using learn_Russian_API.Models.Group;
 using learn_Russian_API.Models.TeacherGroup.Create;
@@ -22,7 +23,8 @@ namespace learn_Russian_API.Presistence
         public DbSet<Category> Categories { get; set; }
         
         public DbSet<Content> Contents { get; set; }
-        public DbSet<DemostrationContents> DemostrationContentses { get; set; }
+        public DbSet<DemonstrationContents> DemonstrationContentses { get; set; }
+        public DbSet<DemoContentsModel> DemoContentsModel { get; set; }
         public DbSet<TrainingContent> TrainingContents { get; set; }
         public DbSet<Training> Trainings { get; set; }
         public  DbSet<Answer> Answers { get; set; }
@@ -32,13 +34,23 @@ namespace learn_Russian_API.Presistence
         {
             base.OnModelCreating(modelBuilder);
             
+            
             //TRAINING 
-            modelBuilder.Entity<Statistic>()
+            /*modelBuilder.Entity<Statistic>()
                 .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(u => u.UserId);
-           
-                
+                .HasForeignKey(u => u.UserId);*/
+
+            modelBuilder.Entity<Content>()
+                .HasOne<DemonstrationContents>()
+                .WithMany()
+                .HasForeignKey(c => c.DemonstrationContentID);
+          
+              
+            modelBuilder.Entity<Content>()
+                .HasOne<Category>()
+                .WithMany()
+                .HasForeignKey(c => c.categoryID);
         }
     }
 }

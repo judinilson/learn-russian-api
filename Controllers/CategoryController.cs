@@ -73,5 +73,17 @@ namespace learn_Russian_API.Controllers
             return Ok(await _context.Categories.ProjectTo<CategoryGetAllResponse>(_mapper.ConfigurationProvider)
                     .FirstOrDefaultAsync(x => x.Id == category.Id));
         }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var foundCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            if (foundCategory == null) return NotFound();
+
+            _context.Categories.Remove(foundCategory);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

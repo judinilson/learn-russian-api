@@ -15,6 +15,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using  Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace learn_Russian_API
 {
@@ -37,6 +41,14 @@ namespace learn_Russian_API
                 .AddProctectedApiCallsWebApis(Configuration, new[] {"user.read", "offline_access"})
                 .AddInMemoryTokenCaches();*/
                 
+                
+
+            //configure FormOptions and sets the multipartBodyLengthLimit property to 200MB
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
                
                 // configure strongly typed settings objects
                 var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -80,6 +92,9 @@ namespace learn_Russian_API
                     });
                 
                 services.AddScoped<IUserService, UserService>();
+                services.AddScoped<IDemoContentsSourceService, DemoContentsSourceService>();
+                
+                services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(opts =>
             {
@@ -135,6 +150,14 @@ namespace learn_Russian_API
             });
 
             app.UseHttpsRedirection();
+
+            //file
+             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider( Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.UseRouting();
 

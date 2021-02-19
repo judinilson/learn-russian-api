@@ -15,9 +15,32 @@ namespace learn_Russian_API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("learn_Russian_API.Models.Content.DemoContents.DemoContentsModel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long?>("DemonstrationContentsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("src")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemonstrationContentsId");
+
+                    b.ToTable("DemoContentsModel");
+                });
 
             modelBuilder.Entity("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", b =>
                 {
@@ -46,9 +69,6 @@ namespace learn_Russian_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("AnswerTypes")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Answers")
                         .HasColumnType("text");
@@ -88,6 +108,9 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<long>("DemonstrationContentID")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("article")
                         .HasColumnType("text");
 
@@ -99,6 +122,9 @@ namespace learn_Russian_API.Migrations
 
                     b.Property<string>("coverImage")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("isArticle")
                         .HasColumnType("boolean");
@@ -113,6 +139,10 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DemonstrationContentID");
+
+                    b.HasIndex("categoryID");
 
                     b.ToTable("Contents");
                 });
@@ -138,27 +168,16 @@ namespace learn_Russian_API.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemostrationContents", b =>
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemonstrationContents", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long?>("ContentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("src")
-                        .HasColumnType("text");
-
-                    b.Property<string>("title")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ContentId");
-
-                    b.ToTable("DemostrationContentses");
+                    b.ToTable("DemonstrationContentses");
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Group", b =>
@@ -190,10 +209,10 @@ namespace learn_Russian_API.Migrations
                     b.Property<int>("BackToArticleCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TotalCorrectAnswers")
+                    b.Property<int>("PercentageCorrectAnswers")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TotalIncorrectAnswers")
+                    b.Property<int>("PercentageIncorrectAnswers")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("TrainingDate")
@@ -203,8 +222,6 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Statistics");
                 });
@@ -236,6 +253,9 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("AnswerTypes")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Author")
                         .HasColumnType("text");
 
@@ -243,6 +263,9 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("coverImage")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -293,9 +316,19 @@ namespace learn_Russian_API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("created")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Models.Content.DemoContents.DemoContentsModel", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.DemonstrationContents", null)
+                        .WithMany("DemostrationContentses")
+                        .HasForeignKey("DemonstrationContentsId");
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Answer", b =>
@@ -305,18 +338,17 @@ namespace learn_Russian_API.Migrations
                         .HasForeignKey("TrainingId");
                 });
 
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemostrationContents", b =>
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Content", b =>
                 {
-                    b.HasOne("learn_Russian_API.Presistence.Entities.Content", null)
-                        .WithMany("DemostrationContentses")
-                        .HasForeignKey("ContentId");
-                });
-
-            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Statistic", b =>
-                {
-                    b.HasOne("learn_Russian_API.Presistence.Entities.User", null)
+                    b.HasOne("learn_Russian_API.Presistence.Entities.DemonstrationContents", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("DemonstrationContentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("categoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -326,6 +358,21 @@ namespace learn_Russian_API.Migrations
                     b.HasOne("learn_Russian_API.Presistence.Entities.TrainingContent", null)
                         .WithMany("Trainings")
                         .HasForeignKey("TrainingContentId");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemonstrationContents", b =>
+                {
+                    b.Navigation("DemostrationContentses");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Training", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.TrainingContent", b =>
+                {
+                    b.Navigation("Trainings");
                 });
 #pragma warning restore 612, 618
         }

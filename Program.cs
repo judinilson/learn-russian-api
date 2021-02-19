@@ -20,7 +20,11 @@ namespace learn_Russian_API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseStartup<Startup>()
+                        .UseKestrel(options => {
+                            options.Limits.MaxRequestBodySize = 209715200;
+                         });
                 });
     }
 }
