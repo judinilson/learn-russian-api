@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,8 +29,14 @@ namespace learn_Russian_API.Services
             var found = _context.DemoContentsModel.Find(id);
             if (found !=null)
             {
+                //localhost:5001/
                 _context.DemoContentsModel.Remove(found);
                 _context.SaveChanges();
+                var path = found.src; 
+                var filepath = path.Replace("localhost:5001/", "");
+                if (File.Exists(filepath))
+                    File.Delete(filepath);
+                
                 return true;
             }
 

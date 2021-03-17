@@ -68,9 +68,9 @@ namespace learn_Russian_API.Presistence
             CreateMap<Content, DemonstrationContentResponse>();
             CreateMap<Content, ArticleContentResponse>();
             CreateMap<ContentDemoCreate, Content>();
+            CreateMap<ContentArticleCreate, Content>();
             CreateMap<DemonstrationContentsCreate, DemonstrationContents>();
             CreateMap<DemonstrationContents, DemonstrationContentsRequest>();
-            CreateMap<ContentArticleCreate, Content>();
             CreateMap<DemoContentsModelCreate[],DemoContentsModel>();
             CreateMap<DemoContentsModelCreate,DemoContentsModel>();
 

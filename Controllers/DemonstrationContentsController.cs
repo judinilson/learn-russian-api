@@ -94,7 +94,7 @@ namespace DefaultNamespace
         
         [HttpPut("source {id}")]
         [ProducesResponseType(typeof(DemonstrationContentsRequest), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Updatesource(long id, [FromBody] DemoContentsModel request)
+        public async Task<IActionResult> Updatesource(long id, [FromBody] DemoContentsModel request) 
         {
 
           
@@ -109,7 +109,7 @@ namespace DefaultNamespace
         [ProducesResponseType(typeof(DemonstrationContentsRequest), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateDemosource(long id, [FromBody] DemoContentsModelCreate[] request)
         {
-
+            
           
             var found = await _context.DemonstrationContentses.FindAsync(id);
             //var ctn =  DemoContentsModelsourceService.update(id,request);

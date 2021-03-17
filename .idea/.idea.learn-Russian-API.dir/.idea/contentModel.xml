@@ -39,6 +39,12 @@
         <e p="20210212200205_updateDemonstrationContentCollection.Designer.cs" t="Include" />
         <e p="20210213122735_checkdb.cs" t="Include" />
         <e p="20210213122735_checkdb.Designer.cs" t="Include" />
+        <e p="20210224170407_updateArticleContent.cs" t="Include" />
+        <e p="20210224170407_updateArticleContent.Designer.cs" t="Include" />
+        <e p="20210224183230_updateArticleContentt.cs" t="Include" />
+        <e p="20210224183230_updateArticleContentt.Designer.cs" t="Include" />
+        <e p="20210314094217_checkUpdates.cs" t="Include" />
+        <e p="20210314094217_checkUpdates.Designer.cs" t="Include" />
         <e p="AppDbContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -196,8 +202,6 @@
           <e p="user.png" t="Include" />
         </e>
         <e p="media-files" t="Include">
-          <e p="I Just Don't Get It - Motivational Speech (The Living Dead).mp4" t="Include" />
-          <e p="videoplayback (1).mp4" t="Include" />
           <e p="videoplayback.mp4" t="Include" />
         </e>
       </e>

@@ -85,7 +85,52 @@ using System.Net.Http.Headers;
             
             return Ok(getArticle);
         }
+
+        [HttpPost("Article-Content")]
+        [ProducesResponseType(typeof(ICollection<ArticleContentResponse>),StatusCodes.Status200OK)]
+        public async Task<ActionResult> CreateArticleContent([FromBody]ContentArticleCreate request)
+        {
+            try
+            {
+               
+                var res = await _context.Contents.AddAsync(_mapper.Map<Content>(request));
+                await _context.SaveChangesAsync();
+            
+                return CreatedAtAction(nameof(CreateArticleContent),
+                    await _context.Contents.ProjectTo<ArticleContentResponse>(_mapper.ConfigurationProvider)
+                        .FirstOrDefaultAsync(x => x.Id == res.Entity.Id));
+            }catch (Exception exception)
+            {
+                return BadRequest($"Error: {exception.Message}");
+            }
+        }
         
+        [HttpPut("Article-Content {id}")]
+        [ProducesResponseType(typeof(ICollection<ArticleContentResponse>),StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateArticleContent(long id, [FromBody] ContentArticleCreate request)
+        {
+
+          
+            var article_content = await _context.Contents
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (article_content == null) return NotFound("Article Content wasn't found");
+            article_content.title = request.title;
+            article_content.subtitle = request.subtitle;
+            article_content.coverImage = request.coverImage;
+            article_content.categoryID = request.categoryID;
+            article_content.article = request.article;
+            article_content.created = request.created;
+            //demo_content.DemonstrationContentID = request.DemonstrationContentID;
+
+
+
+            _context.Contents.Update(article_content);
+            await _context.SaveChangesAsync();
+            
+            return Ok(await _context.Contents.ProjectTo<ArticleContentResponse>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(x => x.Id == article_content.Id));
+        }
+
         
         [HttpPost("Content-Demo-Create")]
         [ProducesResponseType(typeof(ContentGetAllResponse), StatusCodes.Status200OK)]
@@ -120,6 +165,7 @@ using System.Net.Http.Headers;
             demo_content.subtitle = request.subtitle;
             demo_content.coverImage = request.coverImage;
             demo_content.categoryID = request.categoryID;
+            demo_content.created = request.created;
             //demo_content.DemonstrationContentID = request.DemonstrationContentID;
 
 
@@ -130,7 +176,23 @@ using System.Net.Http.Headers;
             return Ok(await _context.Contents.ProjectTo<ContentGetAllResponse>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(x => x.Id == demo_content.Id));
         }
-
+        
+        
+        // DELETE DEMO CONTENT 
+        [HttpDelete("Content {id}")]
+        public async Task<IActionResult> DeleteContentDemo(long id)
+        {
+            var contentfound = await _context.Contents.FindAsync(id);
+            if (contentfound != null)
+            {
+                 _context.Contents.Remove(contentfound);
+                 await _context.SaveChangesAsync();
+                 return Ok("Content Deleted SUCCESSFULLY !!");
+            }
+            return NotFound("Incorrect ID content Wasn't found");
+        }
+        
+        
         
         [HttpPost("upload-files"),DisableRequestSizeLimit]
         public  IActionResult UploadFile()
