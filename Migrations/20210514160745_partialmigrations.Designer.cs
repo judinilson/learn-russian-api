@@ -10,8 +10,8 @@ using learn_Russian_API.Presistence;
 namespace learn_Russian_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210314094217_checkUpdates")]
-    partial class checkUpdates
+    [Migration("20210514160745_partialmigrations")]
+    partial class partialmigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,10 @@ namespace learn_Russian_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("TeacherId");
+
                     b.ToTable("TeacherGroups");
                 });
 
@@ -110,7 +114,7 @@ namespace learn_Russian_API.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("DemonstrationContentID")
+                    b.Property<long?>("DemonstrationContentID")
                         .HasColumnType("bigint");
 
                     b.Property<string>("article")
@@ -225,6 +229,8 @@ namespace learn_Russian_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Statistics");
                 });
 
@@ -323,6 +329,10 @@ namespace learn_Russian_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("TeacherGroupId");
+
                     b.ToTable("Users");
                 });
 
@@ -331,6 +341,21 @@ namespace learn_Russian_API.Migrations
                     b.HasOne("learn_Russian_API.Presistence.Entities.DemonstrationContents", null)
                         .WithMany("DemostrationContentses")
                         .HasForeignKey("DemonstrationContentsId");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("learn_Russian_API.Presistence.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Answer", b =>
@@ -344,13 +369,20 @@ namespace learn_Russian_API.Migrations
                 {
                     b.HasOne("learn_Russian_API.Presistence.Entities.DemonstrationContents", null)
                         .WithMany()
-                        .HasForeignKey("DemonstrationContentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DemonstrationContentID");
 
                     b.HasOne("learn_Russian_API.Presistence.Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("categoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.Statistic", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -360,6 +392,17 @@ namespace learn_Russian_API.Migrations
                     b.HasOne("learn_Russian_API.Presistence.Entities.TrainingContent", null)
                         .WithMany("Trainings")
                         .HasForeignKey("TrainingContentId");
+                });
+
+            modelBuilder.Entity("learn_Russian_API.Presistence.Entities.User", b =>
+                {
+                    b.HasOne("learn_Russian_API.Presistence.Entities.Country", null)
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("learn_Russian_API.Models.TeacherGroup.Create.TeacherGroup", null)
+                        .WithMany()
+                        .HasForeignKey("TeacherGroupId");
                 });
 
             modelBuilder.Entity("learn_Russian_API.Presistence.Entities.DemonstrationContents", b =>

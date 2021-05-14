@@ -14,7 +14,7 @@ namespace learn_Russian_API.Presistence
     {
         public AppDbContext(DbContextOptions options):base(options){}
         
-         public  DbSet<Country>Countries { get; set; }
+        public  DbSet<Country>Countries { get; set; }
         public DbSet<Group> Groups { get; set; }
         
         public DbSet<TeacherGroup> TeacherGroups { get; set; }
@@ -35,11 +35,35 @@ namespace learn_Russian_API.Presistence
             base.OnModelCreating(modelBuilder);
             
             
-            //TRAINING 
-            /*modelBuilder.Entity<Statistic>()
+            // user
+            modelBuilder.Entity<User>()
+                .HasOne<Country>()
+                .WithMany()
+                .HasForeignKey(c => c.CountryId);
+            
+            modelBuilder.Entity<User>()
+                .HasOne<TeacherGroup>()
+                .WithMany()
+                .HasForeignKey(tg => tg.TeacherGroupId);
+
+
+
+            // teacher group 
+            modelBuilder.Entity<TeacherGroup>()
                 .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(u => u.UserId);*/
+                .HasForeignKey(t => t.TeacherId);
+            modelBuilder.Entity<TeacherGroup>()
+                .HasOne<Group>()
+                .WithMany()
+                .HasForeignKey(g => g.GroupId);
+
+
+            //TRAINING 
+            modelBuilder.Entity<Statistic>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(u => u.UserId);
 
             modelBuilder.Entity<Content>()
                 .HasOne<DemonstrationContents>()

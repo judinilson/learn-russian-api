@@ -41,7 +41,6 @@ D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.dll
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.pdb
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\appsettings.Development.json
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\appsettings.json
-D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.MvcApplicationPartsAssemblyInfo.cs
 D:\learn-Russian-API\obj\Debug\netcoreapp3.0\learn-Russian-API.MvcApplicationPartsAssemblyInfo.cache
@@ -57,3 +56,4 @@ D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\Humanizer.dll
 D:\learn-Russian-API\bin\Debug\netcoreapp3.0\System.Threading.Channels.dll
+D:\learn-Russian-API\obj\Debug\netcoreapp3.0\scopedcss\bundle\learn-Russian-API.styles.css
