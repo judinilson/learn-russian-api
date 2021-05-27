@@ -33,7 +33,7 @@ namespace learn_Russian_API.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
-        private readonly AppDbContext _context;
+        //private readonly AppDbContext _context;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
         

@@ -17,7 +17,7 @@ namespace learn_Russian_API.Models.Content.Create
         [Required]public long categoryID { get; set; }
         public bool isDemo { get; set; } = true;
         [Required]public string author { get; set; }
-        public DateTime created {get; set; }
+        public DateTime created {get; set; }  = DateTime.Now;
 
     }
 }
